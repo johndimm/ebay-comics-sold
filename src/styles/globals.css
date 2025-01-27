@@ -14,6 +14,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  margin: 20px;
 }
 
 body {
@@ -39,4 +40,39 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.chart-container {
+  margin-top: 30px;
+  width: 500px;
+}
+
+table {
+  margin-top: 40px;
+  border-collapse: collapse;
+}
+table td {
+  padding: 5px;
+  border: 1px solid lightgray;
+}
+table th {
+  padding: 5px;
+  border: 1px solid lightgray;
+  text-align: left;
+}
+
+form {
+  font-size:18;
+  margin-bottom: 20px;
+  margin-top:30px;
+}
+
+form input {
+  margin-left: 3px;
+  margin-right: 10px;
+}
+
+.search_ebay {
+  color: darkblue;
+  cursor: pointer;
 }
