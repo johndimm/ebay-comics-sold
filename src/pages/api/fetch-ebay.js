@@ -24,12 +24,12 @@ const get_price = (r) => {
 
 const get_cgc = (r) => {
     const pattern = /CGC ([\d\.]*)/
-    const cgc = getx(pattern, r)
-    if (parseFloat(cgc) > 10) {
-        return null
+    let cgc = getx(pattern, r)
+    if (cgc && parseFloat(cgc) > 10) {
+        cgc = null
     }
-    //if cgc and len(cgc) > 1 and cgc[-1] == '.':
-    //   cgc = cgc[:-1]
+    if (cgc)
+      cgc = cgc.replace(/\.$/, "")
     return cgc
 }
 

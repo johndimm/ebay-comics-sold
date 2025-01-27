@@ -12,8 +12,8 @@ const Home = () => {
 
   const examples = [
     { title: 'Fantastic Four', issue: '52', year: '1966' },
-    { title: 'Amazing Spider-Man', issue: '129', year: '1974' },
-    { title: 'Mighty Thor', issue: '140', year: '1967' },
+    { title: 'Spider-Man', issue: '129', year: '1974' },
+    { title: 'Thor', issue: '140', year: '1967' },
     { title: 'X-Men', issue: '94', year: '1975' },
     { title: 'Hulk', issue: '181', year: '1974' },
     { title: 'Avengers', issue: '57', year: '1968' },
@@ -22,6 +22,7 @@ const Home = () => {
     { title: 'Tales to Astonish', issue: '27', year: '1962' },
     { title: 'Journey into Mystery', issue: '83', year: '1962' },
     { title: 'Incredible Hulk', issue: '1', year: '1962' },
+    { title: 'Metal Men', issue: '1', year: '1963' },
   ]
 
   useEffect(() => {
