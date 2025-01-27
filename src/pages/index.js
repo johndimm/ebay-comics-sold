@@ -6,9 +6,10 @@ const Home = () => {
   const [_title, setTitle] = useState('')
   const [_issue, setIssue] = useState('')
   const [_year, setYear] = useState('')
+  const [_sold, setSold] = useState()
 
   const router = useRouter()
-  const { title, issue, year } = router.query
+  const { title, issue, year, sold } = router.query
 
   const examples = [
     { title: 'Fantastic Four', issue: '52', year: '1966' },
@@ -30,25 +31,48 @@ const Home = () => {
       if (title) setTitle(title)
       if (issue) setIssue(issue)
       if (year) setYear(year)
-      console.log('router.query', router.query)
+      if (sold) setSold(sold)
+      // console.log('router.query', router.query)
     }
-  }, [title, issue, year])
+  }, [title, issue, year, sold])
+
+  const navigate = (title, issue, year, sold) => {
+    window.location.href = `/?title=${title}&issue=${issue}&year=${year}&sold=${sold}`
+  }
 
   const submitForm = (e) => {
     e.preventDefault()
-    window.location.href = `/?title=${e.target.title.value}&issue=${e.target.issue.value}&year=${e.target.year.value}`
+    const isSold = e.target.sold.value == 'Sold' ? 1 : 0
+    navigate(e.target.title.value, e.target.issue.value, e.target.year.value, isSold)
+
+    // console.log(e.target)
+
     //setTitle(e.target.title.value)
     //setIssue(e.target.issue.value)
     //setYear(e.target.year.value)
   }
 
+  const soldChanged = (e) => {
+   // e.preventDefault()
+   console.log('soldChanged', e.target.value)
+   navigate(_title, _issue, _year, e.target.value == 'Sold' ? 1 : 0)
+  }
 
   const examplesHtml = examples.map((ex, i) => {
-    return <li key={i}><a href={`/?title=${ex.title}&issue=${ex.issue}&year=${ex.year}`}>{ex.title} #{ex.issue} ({ex.year})</a></li>
+    return <li key={i}><a href={`/?title=${ex.title}&issue=${ex.issue}&year=${ex.year}&sold=${_sold}`}>{ex.title} #{ex.issue} ({ex.year})</a></li>
   })
+  
+
+  if (!_sold)
+    return null // <div>loading...</div>
+
+  const soldChecked = _sold == 1 ? 'True' : 'False'
+  console.log("sold:", sold, "_sold:", _sold, "soldChecked:", soldChecked)
+
 
   return <>
-    <h1>comics recently sold on ebay</h1>
+    <h1>comics recently on ebay</h1>
+    <div className='subtitle'>to slab or not to slab?</div>
 
     <form onSubmit={submitForm}>
       <label>
@@ -63,12 +87,17 @@ const Home = () => {
         Year:
         <input type="text" name='year' size="4" defaultValue={_year} />
       </label>
+
+      <input type="radio" name='sold' value='Sold' defaultChecked={_sold == 1} onChange={soldChanged}/>
+        <span className='checkboxText'>Sold</span>
+      <input type="radio" name='sold' value='For Sale' defaultChecked={_sold == 0} onChange={soldChanged}/>
+        <span className='checkboxText'>For Sale</span>
       <input type="submit" value="Submit" />
     </form>
 
     <ul className='examples'>{examplesHtml}</ul>
 
-    <Ebay title={_title} year={_year} issue={_issue} />
+    <Ebay title={_title} year={_year} issue={_issue} sold={_sold}/>
   </>
 }
 

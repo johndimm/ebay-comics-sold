@@ -28,7 +28,7 @@ const ScatterPlot = ({ chartData, title }) => {
     );
 }
 
-export default function Ebay({ title, year, issue }) {
+export default function Ebay({ title, year, issue, sold }) {
     const [data, setData] = useState('hello')
 
     const fetchData = async () => {
@@ -36,7 +36,8 @@ export default function Ebay({ title, year, issue }) {
             params: {
                 title: title,
                 year: year,
-                issue: issue
+                issue: issue,
+                sold: sold
             }
         })
         setData(response.data)
@@ -45,7 +46,7 @@ export default function Ebay({ title, year, issue }) {
     useEffect(() => {
         if (title)
           fetchData()
-    }, [title, year, issue])
+    }, [title, year, issue, sold])
 
     if (!data || data.length === 0) {
         return <div>loading...</div>
@@ -59,6 +60,7 @@ export default function Ebay({ title, year, issue }) {
             <td>{item.cgc}</td>
             <td>{item.grade}</td>
             <td>{item.title}</td>
+            <td>{item.seller}</td>
         </tr>
     })
 
@@ -82,10 +84,10 @@ export default function Ebay({ title, year, issue }) {
         }]
     }
 
-    console.log(chartData)
+    // console.log(chartData)
 
     const titleEsc = title.replace(/ /g, "+")
-    const url = `https://www.ebay.com/sch/i.html?_nkw=${titleEsc}+${year}+${issue}&LH_Sold=1&_ipg=240`
+    const url = `https://www.ebay.com/sch/i.html?_nkw=${titleEsc}+${year}+${issue}&LH_Sold=${sold}&_ipg=240`
   
     return (<>
         <div className="App">
@@ -101,6 +103,7 @@ export default function Ebay({ title, year, issue }) {
                         <th>Slab</th>
                         <th>Raw</th>
                         <th>Title</th>
+                        <th>Seller</th>
                     </tr>
                 </thead>
                 <tbody>

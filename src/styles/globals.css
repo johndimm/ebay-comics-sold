@@ -68,9 +68,13 @@ form {
   margin-top:30px;
 }
 
-form input {
+form input[type=text] {
   margin-left: 3px;
   margin-right: 10px;
+}
+
+form input[type=radio] {
+  margin-right: 3px;
 }
 
 .search_ebay {
@@ -85,4 +89,18 @@ form input {
   margin-bottom: 50px;
   margin-left: 20px;
   column-gap: 30px;
+}
+
+.checkboxText {
+  font-size: 14px;
+  margin-right: 15px;
+}
+
+td {
+  font-size: 10pt;
+}
+
+.subtitle {
+  font-size: 9pt;
+  font-style: italic;
 }

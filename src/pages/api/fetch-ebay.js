@@ -73,6 +73,11 @@ const get_variant = (r) => {
     return getx(pattern, r)
 }
 
+const get_seller = (r) => {    
+    const pattern = /<span class=s-item__seller-info-text>(.*?)<\/span>/
+    return getx(pattern, r)
+}
+
 const grades =
 {
     "Gem Mint": "10",
@@ -110,6 +115,7 @@ const parseChunk = (chunk, title, issue, year) => {
 
     const price = get_price(chunk)
     const sold_on = get_sold_on(chunk)
+    const seller = get_seller (chunk)
 
     const cgc = get_cgc(listing_title)
     const listing_issue = get_issue(listing_title, issue)
@@ -128,6 +134,7 @@ const parseChunk = (chunk, title, issue, year) => {
         "listing_year": listing_year,
         "annual": annual,
         "variant": variant,
+        "seller": seller
     }
 
     const _title = title.toLowerCase()
@@ -149,7 +156,7 @@ const parseChunk = (chunk, title, issue, year) => {
 }
 
 export default async function handler(req, res) {
-    const { title, year, issue } = req.query
+    const { title, year, issue, sold } = req.query
     const titleEsc = title.replace(/ /g, "+")
     // const url=`https://www.ebay.com/sch/i.html?_nkw=${titleEsc}+${year}+${issue}&LH_Sold=1&_ipg=240`
     const url = `https://www.ebay.com/sch/i.html`
@@ -157,7 +164,7 @@ export default async function handler(req, res) {
     const response = await axios.get(url, {
         params: {
             _nkw: `${titleEsc}+${year}+${issue}`,
-            LH_Sold: 1,
+            LH_Sold: sold,
             _ipg: 240
         }
     }
