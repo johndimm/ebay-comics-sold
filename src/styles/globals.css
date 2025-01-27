@@ -45,6 +45,7 @@ a {
 .chart-container {
   margin-top: 30px;
   width: 500px;
+  margin-bottom: 20px;
 }
 
 table {
@@ -75,4 +76,13 @@ form input {
 .search_ebay {
   color: darkblue;
   cursor: pointer;
+}
+
+.examples {
+  column-count: 3;
+  font-size:10pt;
+  width: fit-content;
+  margin-bottom: 50px;
+  margin-left: 20px;
+  column-gap: 30px;
 }

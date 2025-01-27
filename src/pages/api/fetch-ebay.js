@@ -24,8 +24,10 @@ const get_price = (r) => {
 
 const get_cgc = (r) => {
     const pattern = /CGC ([\d\.]*)/
-    // const pattern = /CGC (\d*)/
     const cgc = getx(pattern, r)
+    if (parseFloat(cgc) > 10) {
+        return null
+    }
     //if cgc and len(cgc) > 1 and cgc[-1] == '.':
     //   cgc = cgc[:-1]
     return cgc

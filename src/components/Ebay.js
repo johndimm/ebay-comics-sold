@@ -43,7 +43,8 @@ export default function Ebay({ title, year, issue }) {
     }
 
     useEffect(() => {
-        fetchData()
+        if (title)
+          fetchData()
     }, [title, year, issue])
 
     if (!data || data.length === 0) {
@@ -81,9 +82,16 @@ export default function Ebay({ title, year, issue }) {
         }]
     }
 
+    console.log(chartData)
+
+    const titleEsc = title.replace(/ /g, "+")
+    const url = `https://www.ebay.com/sch/i.html?_nkw=${titleEsc}+${year}+${issue}&LH_Sold=1&_ipg=240`
+  
     return (<>
         <div className="App">
             <ScatterPlot chartData={chartData} title={`${title} ${issue} ${year}`} />
+
+            <a className="search_ebay" href={url} target="_ebay">view search results on ebay</a>
 
             <table>
                 <thead>
