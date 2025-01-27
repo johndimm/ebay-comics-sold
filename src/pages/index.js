@@ -1,4 +1,4 @@
-import Ebay from '@/components/ebay'
+import Ebay from '@/components/Ebay'
 import { useEffect, useState } from 'react'
 
 const Home = () => {
