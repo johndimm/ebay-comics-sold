@@ -66,8 +66,24 @@ export default function Ebay({ title, year, issue, sold }) {
         return <div>loading...</div>
     }
 
+    const d2f = (s) => {
+        if (!s) return s
+        return parseFloat(s.replace("$",'').replace(",", ''))
+    }
+
     const dArray = Array.from(data)
-    const table_rows = dArray.map((item, i) => {
+    const table_rows = dArray.sort ( (a, b) => {
+        const avalue = d2f(a.price)
+        const bvalue = d2f(b.price)
+        if (avalue < bvalue) {
+            return 1;
+          }
+          if (avalue > bvalue) {
+            return -1;
+          }
+          return 0;
+        d2f(a.price) < d2f(b.price)
+    } ).map((item, i) => {
         return <tr key={i}>
             <td>{item.sold_on}</td>
             <td>{item.price}</td>
