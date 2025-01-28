@@ -13,6 +13,20 @@ const ScatterPlot = ({ chartData, title }) => {
             <Scatter
                 data={chartData}
                 options={{
+                    scales: {
+                        x: {
+                          title: {
+                            display: true,
+                            text: 'grade'
+                          }
+                        },
+                        y: {
+                          title: {
+                            display: true,
+                            text: 'price'
+                          }
+                        }
+                      },
                     plugins: {
                         tooltip: {
                             callbacks: {

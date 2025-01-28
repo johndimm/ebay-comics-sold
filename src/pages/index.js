@@ -1,6 +1,7 @@
 import Ebay from '@/components/Ebay'
 import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { Analytics } from "@vercel/analytics/react"
 
 const Home = () => {
   const [_title, setTitle] = useState('')
