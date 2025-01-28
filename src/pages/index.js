@@ -59,12 +59,18 @@ const Home = () => {
   }
 
   const examplesHtml = examples.map((ex, i) => {
-    return <li key={i}><a href={`/?title=${ex.title}&issue=${ex.issue}&year=${ex.year}&sold=${_sold}`}>{ex.title} #{ex.issue} ({ex.year})</a></li>
+    return <li key={i}><a href={`/?title=${ex.title}&issue=${ex.issue}&year=${ex.year}&sold=1`}>{ex.title} #{ex.issue} ({ex.year})</a></li>
   })
   
-
-  if (!_sold)
-    return null // <div>loading...</div>
+  let radioHtml = <></>
+  if (_sold != undefined) {
+    radioHtml = <>
+      <input type="radio" name='sold' value='Sold' defaultChecked={_sold == 1} onChange={soldChanged}/>
+      <span className='checkboxText'>Sold</span>
+      <input type="radio" name='sold' value='For Sale' defaultChecked={_sold == 0} onChange={soldChanged}/>
+      <span className='checkboxText'>For Sale</span>
+    </>
+  }
 
   const soldChecked = _sold == 1 ? 'True' : 'False'
   console.log("sold:", sold, "_sold:", _sold, "soldChecked:", soldChecked)
@@ -88,12 +94,11 @@ const Home = () => {
         <input type="text" name='year' size="4" defaultValue={_year} />
       </label>
 
-      <input type="radio" name='sold' value='Sold' defaultChecked={_sold == 1} onChange={soldChanged}/>
-        <span className='checkboxText'>Sold</span>
-      <input type="radio" name='sold' value='For Sale' defaultChecked={_sold == 0} onChange={soldChanged}/>
-        <span className='checkboxText'>For Sale</span>
+      {radioHtml}
+
       <input type="submit" value="Submit" />
     </form>
+
 
     <ul className='examples'>{examplesHtml}</ul>
 
