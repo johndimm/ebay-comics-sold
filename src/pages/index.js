@@ -103,6 +103,10 @@ const Home = () => {
     <ul className='examples'>{examplesHtml}</ul>
 
     <Ebay title={_title} year={_year} issue={_issue} sold={_sold}/>
+
+    <br />
+
+    <a href="https://github.com/johndimm/ebay-comics-sold">https://github.com/johndimm/ebay-comics-sold</a>
   </>
 }
 

@@ -22,14 +22,19 @@ const get_price = (r) => {
     return price
 }
 
-const get_cgc = (r) => {
+const get_cgc = (r, grade) => {
     const pattern = /CGC [^\d\W-]{0,3} *([\d\.]*)/
     let cgc = getx(pattern, r)
     if (cgc && parseFloat(cgc) > 10) {
         cgc = null
     }
-    if (cgc)
+    if (cgc) {
       cgc = cgc.replace(/\.$/, "")
+    } else {
+        if (grade && r.includes("CGC")) {
+            cgc = grade.split(' ')[1]
+        }   
+    }
     return cgc
 }
 
@@ -117,9 +122,10 @@ const parseChunk = (chunk, title, issue, year) => {
     const sold_on = get_sold_on(chunk)
     const seller = get_seller (chunk)
 
-    const cgc = get_cgc(listing_title)
-    const listing_issue = get_issue(listing_title, issue)
     const grade = get_grade(listing_title)
+    const cgc = get_cgc(listing_title, grade)
+    const listing_issue = get_issue(listing_title, issue)
+
     const listing_year = get_year(listing_title)
     const annual = get_annual(listing_title)
     const variant = get_variant(listing_title)
