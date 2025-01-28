@@ -29,11 +29,11 @@ const get_cgc = (r, grade) => {
         cgc = null
     }
     if (cgc) {
-      cgc = cgc.replace(/\.$/, "")
+        cgc = cgc.replace(/\.$/, "")
     } else {
         if (grade && r.includes("CGC")) {
             cgc = grade.split(' ')[1]
-        }   
+        }
     }
     return cgc
 }
@@ -55,11 +55,16 @@ const get_sold_on = (r) => {
 
 const get_grade = (r) => {
     let grade
-    Object.keys(grades).forEach((key, idx) => {
-        if (r.includes(` ${key} `)) {
-            grade = `${key} ${grades[key]}`
+    const words = r.split(/ +/)
+    words.forEach((word, idx) => {
+        if (!grade) {
+            const key = word.toUpperCase()
+            if (grades[key]) {
+                grade = `${key} ${grades[key]}`
+            }
         }
     })
+
     return grade
 }
 
@@ -78,14 +83,14 @@ const get_variant = (r) => {
     return getx(pattern, r)
 }
 
-const get_seller = (r) => {    
+const get_seller = (r) => {
     const pattern = /<span class=s-item__seller-info-text>(.*?)<\/span>/
     return getx(pattern, r)
 }
 
 const grades =
 {
-    "Gem Mint": "10",
+    "GEM": "10",
     "Mint": "9.9",
     "NM/M": "9.8",
     "NM+": "9.6",
@@ -110,6 +115,31 @@ const grades =
     "Fa/G": "1.5",
     "Fa": "1.0",
     "Poor": "0.5",
+    "GM": "10",
+    "MT": "9.9",
+    "NM/MT": "9.8",
+    "NM+": "9.6",
+    "NM": "9.4",
+    "NM-": "9.2",
+    "VF/NM": "9",
+    "VF+": "8.5",
+    "VF": "8",
+    "VF-": "7.5",
+    "FN/VF": "7",
+    "FN+": "6.5",
+    "FN": "6",
+    "FN-": "5.5",
+    "VG/FN": "5",
+    "VG+": "4.5",
+    "VG": "4",
+    "VG-": "3.5",
+    "GD/VG": "3",
+    "GD+": "2.5",
+    "GD": "2",
+    "GD-": "1.8",
+    "FR/GD": "1.5",
+    "FR": "1",
+    "PR": "0.5",
 }
 
 const parseChunk = (chunk, title, issue, year) => {
@@ -120,7 +150,7 @@ const parseChunk = (chunk, title, issue, year) => {
 
     const price = get_price(chunk)
     const sold_on = get_sold_on(chunk)
-    const seller = get_seller (chunk)
+    const seller = get_seller(chunk)
 
     const grade = get_grade(listing_title)
     const cgc = get_cgc(listing_title, grade)
@@ -152,7 +182,7 @@ const parseChunk = (chunk, title, issue, year) => {
         && issue == listing_issue
         && (!listing_year || listing_year <= year)
         && goodTitle
-        && !annual
+        && (_title.includes('annual') || !annual)
         && !variant
     ) {
         return json

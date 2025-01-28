@@ -65,11 +65,11 @@ export default function Ebay({ title, year, issue, sold }) {
     })
 
     const cgcPoints = dArray.filter(item => item.cgc).map((item, i) => {
-        return { x: item.cgc, y: priceToFloat(item.price), description: `${item.title} ${item.price}`  }
+        return { x: item.cgc, y: priceToFloat(item.price), description: `${item.price} ${item.title}`  }
     })
 
     const rawPoints = dArray.filter(item => item.grade && !item.cgc).map((item, i) => {
-        return { x: item.grade.split(' ')[1], y: priceToFloat(item.price), description: `${item.title} ${item.price}`  }
+        return { x: item.grade.split(' ')[1], y: priceToFloat(item.price), description: `${item.price} ${item.title}`  }
     })
 
     const chartData = {
