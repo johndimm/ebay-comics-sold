@@ -23,7 +23,7 @@ const get_price = (r) => {
 }
 
 const get_cgc = (r) => {
-    const pattern = /CGC ([\d\.]*)/
+    const pattern = /CGC [^\d\W-]{0,3} *([\d\.]*)/
     let cgc = getx(pattern, r)
     if (cgc && parseFloat(cgc) > 10) {
         cgc = null
