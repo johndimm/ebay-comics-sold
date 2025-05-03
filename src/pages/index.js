@@ -7,7 +7,7 @@ const Home = () => {
   const [_title, setTitle] = useState('')
   const [_issue, setIssue] = useState('')
   const [_year, setYear] = useState('')
-  const [_sold, setSold] = useState()
+  const [_sold, setSold] = useState(1)
 
   const router = useRouter()
   const { title, issue, year, sold } = router.query
