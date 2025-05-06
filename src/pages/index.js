@@ -7,7 +7,7 @@ const Home = () => {
   const [_title, setTitle] = useState('')
   const [_issue, setIssue] = useState('')
   const [_year, setYear] = useState('')
-  const [_sold, setSold] = useState(1)
+  const [_sold, setSold] = useState(null)
 
   const router = useRouter()
   const { title, issue, year, sold } = router.query
@@ -32,7 +32,9 @@ const Home = () => {
       if (title) setTitle(title)
       if (issue) setIssue(issue)
       if (year) setYear(year)
-      if (sold) setSold(sold)
+      if (sold) 
+        setSold(parseInt(sold)) 
+        else setSold(1)
       // console.log('router.query', router.query)
     }
   }, [title, issue, year, sold])
@@ -63,8 +65,9 @@ const Home = () => {
     return <li key={i}><a href={`/?title=${ex.title}&issue=${ex.issue}&year=${ex.year}&sold=1`}>{ex.title} #{ex.issue} ({ex.year})</a></li>
   })
   
+  // const soldChecked = _sold != null && _sold == 1
   let radioHtml = <></>
-  if (_sold != undefined) {
+  if (_sold != undefined) { //} && router.isReady) {
     radioHtml = <>
       <input type="radio" name='sold' value='Sold' defaultChecked={_sold == 1} onChange={soldChanged}/>
       <span className='checkboxText'>Sold</span>
@@ -73,12 +76,11 @@ const Home = () => {
     </>
   }
 
-  const soldChecked = _sold == 1 ? 'True' : 'False'
-  console.log("sold:", sold, "_sold:", _sold, "soldChecked:", soldChecked)
+ // console.log("sold:", sold, "_sold:", _sold, "soldChecked:", soldChecked)
 
 
   return <>
-    <h1>comics recently on ebay</h1>
+    <h1>comics recently listed on ebay</h1>
     <div className='subtitle'>to slab or not to slab?</div>
 
     <form onSubmit={submitForm}>
